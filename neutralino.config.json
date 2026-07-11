@@ -17,8 +17,11 @@
     "app.*",
     "os.execCommand",
     "os.getEnvar",
+    "os.getPath",
+    "os.showSaveDialog",
     "path.*",
     "clipboard.writeText",
+    "filesystem.*",
     "debug.log"
   ],
   "globalVariables": {

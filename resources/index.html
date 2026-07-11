@@ -9,11 +9,26 @@
 <body>
     <div class="container">
       <div class="header">
-          <h1>Term Log</h1>
-          <p>Consulta segura de comandos ejecutados</p>
+          <div class="header-top">
+              <div>
+                  <h1>Term Log</h1>
+                  <p>Consulta segura de comandos ejecutados</p>
+              </div>
+              <button class="btn" id="aboutButton" type="button">
+                  <span class="btn-icon" aria-hidden="true">ℹ️</span>
+                  <span>Acerca de</span>
+              </button>
+          </div>
       </div>
       <div class="controls">
-          <button class="btn" id="loadButton" type="button">Cargar</button>
+          <button class="btn" id="exportButton" type="button">
+              <span class="btn-icon" aria-hidden="true">⬇️</span>
+              <span>Exportar .txt</span>
+          </button>
+          <button class="btn" id="loadButton" type="button">
+              <span class="btn-icon" aria-hidden="true">🔄</span>
+              <span>Cargar</span>
+          </button>
           <div class="search-wrapper">
               <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -30,6 +45,40 @@
           <span>Sistema listo</span>
           <span id="count-display">0 registros</span>
       </div> -->
+  </div>
+  <div class="modal-backdrop" id="aboutModal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+          <button class="modal-close" id="closeAboutModal" type="button" aria-label="Cerrar">×</button>
+          <h2 id="aboutTitle">Acerca de Term Log</h2>
+          <p class="modal-text">Aplicación para consultar y gestionar comandos del historial de terminal.</p>
+          <ul class="modal-list">
+              <li id="aboutDeveloper"><strong>Desarrollador:</strong> Juan L.</li>
+              <li id="aboutVersion"><strong>Versión:</strong> 1.0.0</li>
+              <li id="aboutPlatform"><strong>Plataforma:</strong> cargando...</li>
+              <li id="aboutOs"><strong>Sistema operativo:</strong> cargando...</li>
+              <li id="aboutContact"><strong>Contacto:</strong> developer@example.com</li>
+          </ul>
+      </div>
+  </div>
+  <div class="modal-backdrop" id="exportModal" hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+          <button class="modal-close" id="closeExportModal" type="button" aria-label="Cerrar">×</button>
+          <h2 id="exportTitle">Exportar registros</h2>
+          <p class="modal-text">Elige qué registros deseas exportar.</p>
+          <div class="export-options">
+              <label class="export-option">
+                  <input type="radio" name="exportScope" value="visible" checked>
+                  <span>Solo los registros visibles (según filtro/paginación)</span>
+              </label>
+              <label class="export-option">
+                  <input type="radio" name="exportScope" value="all">
+                  <span>Todos los registros</span>
+              </label>
+          </div>
+          <div class="modal-actions">
+              <button class="btn" id="confirmExportButton" type="button">Exportar</button>
+          </div>
+      </div>
   </div>
     <script src="js/neutralino.js"></script>
     <script type="module" src="js/main.js"></script>

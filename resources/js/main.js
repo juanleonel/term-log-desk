@@ -1,4 +1,5 @@
 import { paginationUtils } from './pagination.utils.js';
+import { serializeCommandsToText, downloadTextFile } from './import.utils.js';
 
 let commands = [];
 let filteredCommands = [];
@@ -17,6 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('content');
     const searchInput = document.getElementById('searchInput');
     const loadButton = document.getElementById('loadButton');
+    const exportButton = document.getElementById('exportButton');
+    const aboutButton = document.getElementById('aboutButton');
+    const aboutModal = document.getElementById('aboutModal');
+    const closeAboutModal = document.getElementById('closeAboutModal');
+    const exportModal = document.getElementById('exportModal');
+    const closeExportModal = document.getElementById('closeExportModal');
+    const confirmExportButton = document.getElementById('confirmExportButton');
 
     if (content) {
         content.addEventListener('click', handleContentClick);
@@ -29,6 +37,62 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loadButton) {
         loadButton.addEventListener('click', loadHistory);
     }
+
+    if (exportButton) {
+        exportButton.addEventListener('click', () => {
+            exportModal.hidden = false;
+        });
+    }
+
+    if (aboutButton && aboutModal) {
+        aboutButton.addEventListener('click', async () => {
+            await populateAboutInfo(aboutModal);
+            aboutModal.hidden = false;
+        });
+    }
+
+    if (closeAboutModal && aboutModal) {
+        closeAboutModal.addEventListener('click', () => {
+            aboutModal.hidden = true;
+        });
+    }
+
+    if (closeExportModal && exportModal) {
+        closeExportModal.addEventListener('click', () => {
+            exportModal.hidden = true;
+        });
+    }
+
+    if (confirmExportButton && exportModal) {
+        confirmExportButton.addEventListener('click', () => {
+            const selectedScope = document.querySelector('input[name="exportScope"]:checked')?.value;
+            exportModal.hidden = true;
+            exportCommandsToTxt(selectedScope === 'all');
+        });
+    }
+
+    [aboutModal, exportModal].forEach((modal) => {
+        if (!modal) {
+            return;
+        }
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.hidden = true;
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (aboutModal) {
+                aboutModal.hidden = true;
+            }
+            if (exportModal) {
+                exportModal.hidden = true;
+            }
+        }
+    });
 });
 
 async function resolveScriptDir() {
@@ -77,6 +141,115 @@ async function loadHistory() {
     } catch (err) {
         content.innerHTML = `<div class="error">Error: ${err.message || err}</div>`;
     }
+}
+
+async function exportCommandsToTxt(exportAll = false) {
+    const content = document.getElementById('content');
+    const exportList = exportAll ? commands : (filteredCommands.length ? filteredCommands : commands);
+
+    if (!exportList.length) {
+        content.innerHTML = '<div class="error">No hay comandos para exportar.</div>';
+
+        return;
+    }
+
+    try {
+        const textContent = serializeCommandsToText(exportList);
+        const savedPath = await downloadTextFile('comandos.txt', textContent);
+
+        if (savedPath) {
+            content.innerHTML = `<div class="empty-state"><p>Archivo guardado en:<br>${savedPath}</p></div>`;
+        } else {
+            content.innerHTML = '<div class="empty-state"><p>No se pudo iniciar la descarga. Intenta de nuevo desde la ventana de la app.</p></div>';
+        }
+    } catch (err) {
+        content.innerHTML = `<div class="error">Error: ${err.message || err}</div>`;
+    }
+}
+
+async function populateAboutInfo(aboutModal) {
+    const title = document.getElementById('aboutTitle');
+    const version = document.getElementById('aboutVersion');
+    const platform = document.getElementById('aboutPlatform');
+    const osName = document.getElementById('aboutOs');
+    const developer = document.getElementById('aboutDeveloper');
+    const contact = document.getElementById('aboutContact');
+
+    try {
+        const config = typeof Neutralino !== 'undefined' ? await Neutralino.app.getConfig() : null;
+        const appVersion = config?.version || '1.0.0';
+        const appName = config?.applicationId || 'Term Log';
+        const runtimePlatform = navigator.platform || 'Desconocida';
+        const userAgent = navigator.userAgent || 'Desconocido';
+        const osLabel = detectOS(userAgent, runtimePlatform);
+
+        if (title) {
+            title.textContent = `Acerca de ${appName}`;
+        }
+
+        if (version) {
+            version.textContent = `Versión: ${appVersion}`;
+        }
+
+        if (platform) {
+            platform.textContent = `Plataforma: ${runtimePlatform}`;
+        }
+
+        if (osName) {
+            osName.textContent = `Sistema operativo: ${osLabel}`;
+        }
+
+        if (developer) {
+            developer.textContent = 'Desarrollador: Juan L.';
+        }
+
+        if (contact) {
+            contact.textContent = 'Contacto: developer@example.com';
+        }
+    } catch (err) {
+        if (version) {
+            version.textContent = 'Versión: 1.0.0';
+        }
+
+        if (platform) {
+            platform.textContent = `Plataforma: ${navigator.platform || 'Desconocida'}`;
+        }
+
+        if (osName) {
+            osName.textContent = `Sistema operativo: ${detectOS(navigator.userAgent || '', navigator.platform || '')}`;
+        }
+    }
+}
+
+function detectOS(userAgent, platform) {
+    const lowerAgent = userAgent.toLowerCase();
+    const lowerPlatform = platform.toLowerCase();
+
+    if (lowerAgent.includes('win')) {
+        return 'Windows';
+    }
+
+    if (lowerAgent.includes('mac')) {
+        return 'macOS';
+    }
+
+    if (lowerAgent.includes('linux')) {
+        return 'Linux';
+    }
+
+    if (lowerPlatform.includes('linux')) {
+        return 'Linux';
+    }
+
+    if (lowerPlatform.includes('mac')) {
+        return 'macOS';
+    }
+
+    if (lowerPlatform.includes('win')) {
+        return 'Windows';
+    }
+
+    return 'Desconocido';
 }
 
 function renderCommands(list = filteredCommands) {

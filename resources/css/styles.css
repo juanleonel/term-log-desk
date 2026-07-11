@@ -55,6 +55,13 @@ body {
   color: var(--text-secondary);
 }
 
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 .controls {
   padding: 1.25rem 2rem;
   display: flex;
@@ -75,6 +82,9 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .btn:hover {
@@ -83,6 +93,11 @@ body {
 }
 
 .btn:active { transform: scale(0.98); }
+
+.btn-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
 
 .search-wrapper {
   flex: 1;
@@ -290,4 +305,82 @@ body {
 .pagination-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 1000;
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-card {
+  position: relative;
+  width: min(100%, 420px);
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.modal-card h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.modal-list {
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.export-options {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.export-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.export-option input {
+  margin-top: 0.2rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
 }
