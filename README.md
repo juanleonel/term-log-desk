@@ -1,15 +1,23 @@
-# neutralinojs-minimal
+# TERM-LOG
 
-The default template for a Neutralinojs app. It's possible to use your favorite frontend framework by using [these steps](https://neutralino.js.org/docs/getting-started/using-frontend-libraries).
+Una aplicación de escritorio ligera construida con [NeutralinoJS](https://neutralino.js.org/). Diseñada para ser minimalista, rápida y sin dependencias pesadas.
 
-## Contributors
+## 🚀 Requisitos Previos
 
-[![Contributors](https://contrib.rocks/image?repo=neutralinojs/neutralinojs-minimal)](https://github.com/neutralinojs/neutralinojs-minimal/graphs/contributors)
+-   Node.js (v18 o superior)
+-   pnpm (`npm install -g pnpm`)
+-   Herramientas de compilación nativas del sistema operativo (GCC/Clang en Linux, Xcode CLI en macOS, MSVC en Windows)
 
-## License
+## 🛠️ Instalación
 
-[MIT](LICENSE)
+Clona el repositorio e instala las dependencias usando pnpm:
 
-## Icon credits
+```bash
+git clone <url-del-repositorio>
+cd term-log
 
-- `trayIcon.png` - Made by [Freepik](https://www.freepik.com) and downloaded from [Flaticon](https://www.flaticon.com)
+# Instalar dependencias con pnpm
+pnpm install
+
+# Iniciar en modo desarrollo (con inspector activado)
+pnpm dev

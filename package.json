@@ -1,3 +1,8 @@
 {
+  "scripts": {
+    "dev": "pnpm exec neu run",
+    "build:dev": "pnpm exec neu build",
+    "build:prod": "pnpm exec neu build --release"
+  },
   "type": "module"
 }
