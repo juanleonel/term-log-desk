@@ -1,11 +1,11 @@
 :root {
-  --bg-body: #f9fafb;       /* Gris muy claro */
-  --bg-card: #ffffff;       /* Blanco puro */
-  --text-primary: #111827;  /* Casi negro */
-  --text-secondary: #6b7280;/* Gris medio */
-  --border-color: #e5e7eb;  /* Gris borde */
-  --accent-hover: #f3f4f6;  /* Hover sutil */
-  --focus-ring: #d1d5db;    /* Anillo de foco */
+  --bg-body: #f9fafb;
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --accent-hover: #f3f4f6;
+  --focus-ring: #d1d5db;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -129,9 +129,15 @@ body {
 
 .content::-webkit-scrollbar { width: 6px; }
 .content::-webkit-scrollbar-track { background: transparent; }
-.content::-webkit-scrollbar-thumb { 
-  background-color: var(--border-color); 
-  border-radius: 20px; 
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 20px;
+}
+
+.command-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .command-item {
@@ -147,6 +153,7 @@ body {
   margin: 0 -2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  align-items: flex-start;
 }
 
 .command-item:last-child { border-bottom: none; }
@@ -166,6 +173,7 @@ body {
 .cmd-text {
   word-break: break-all;
   flex: 1;
+  min-width: 0;
 }
 
 .empty-state, .loading, .error {
@@ -229,22 +237,57 @@ body {
   opacity: 1;
 }
 
-.command-item {
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.cmd-text {
-  flex: 1;
-  min-width: 0;
-}
-
 .command-item.copied-indicator {
-    border-right: 3px solid var(--text-secondary);
-    background-color: var(--accent-hover);
-    transition: all 0.3s ease;
+  border-right: 3px solid var(--text-secondary);
+  background-color: var(--accent-hover);
+  transition: all 0.3s ease;
 }
 
 .command-item:hover:not(.copied-indicator) {
-    background-color: var(--accent-hover);
+  background-color: var(--accent-hover);
+}
+
+.pagination-summary {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding: 0.75rem 0 1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-btn {
+  min-width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--focus-ring);
+}
+
+.pagination-btn.active {
+  background: var(--text-primary);
+  color: var(--bg-card);
+  border-color: var(--text-primary);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }

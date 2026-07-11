@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Terminal</title>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -14,12 +13,12 @@
           <p>Consulta segura de comandos ejecutados</p>
       </div>
       <div class="controls">
-          <button class="btn" onclick="loadHistory()">Cargar</button>
+          <button class="btn" id="loadButton" type="button">Cargar</button>
           <div class="search-wrapper">
               <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
-              <input type="text" class="search-box" id="searchInput" placeholder="Buscar comando..." onkeyup="filterCommands()">
+              <input type="text" class="search-box" id="searchInput" placeholder="Buscar comando...">
           </div>
       </div>
       <div class="content" id="content">
@@ -27,12 +26,12 @@
               <p>Presiona "Cargar" para ver el historial</p>
           </div>
       </div>
-      <div class="stats" id="stats">
+      <!-- <div class="stats" id="stats">
           <span>Sistema listo</span>
           <span id="count-display">0 registros</span>
-      </div>
+      </div> -->
   </div>
     <script src="js/neutralino.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
