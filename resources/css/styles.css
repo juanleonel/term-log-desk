@@ -348,6 +348,13 @@ body {
   margin-bottom: 0.75rem;
 }
 
+.about-icon {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem;
+}
+
 .modal-text {
   font-size: 0.9rem;
   color: var(--text-secondary);

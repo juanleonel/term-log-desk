@@ -11,6 +11,10 @@ const ITEMS_PER_PAGE = paginationUtils?.defaultItemsPerPage || 50;
 
 window.stringEmpty = stringEmpty;
 
+// Neutralino.window.onClose(() => {
+//   Neutralino.app.exit(); 
+// });
+
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof Neutralino !== 'undefined') {
         Neutralino.init();
